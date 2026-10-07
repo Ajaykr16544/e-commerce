@@ -209,4 +209,53 @@ Protected endpoints require the bearer token stored by the frontend after sign-i
 ## Production notes
 
 Set `NODE_ENV=production`, provide a strong private JWT secret, use a secured production MongoDB deployment, and configure real payment/email services as needed. Build the frontend with `npm --prefix frontend run build`; the Express app serves `frontend/dist` when running in production. Do not use the demo seed accounts, placeholder secrets, or development payment simulation in a public production deployment.
+
+## 🚀 Windows CMD quick start (copy and paste)
+
+> **Run from a CMD window.** This project is in `D:\e-commerce`; change that path in the commands if you put the project somewhere else.
+>
+> **Before starting:** MongoDB must be running, and the repository-root `.env` must be configured as described above. If MongoDB is installed as a Windows service, start CMD as Administrator and run `net start MongoDB`.
+
+### 1. First-time setup only
+
+Copy and paste these commands to install the backend and frontend dependencies:
+
+```cmd
+cd /d D:\e-commerce
+npm --prefix backend install
+npm --prefix frontend install
+```
+
+### 2. Load sample products only if the database is empty
+
+```cmd
+cd /d D:\e-commerce
+npm --prefix backend run seed
+```
+
+> **Warning:** The seeder deletes existing users, products, categories, orders, carts, reviews, and other seeded collections before inserting demo data. Do not run it if you need to keep data already in the configured database. It has already been run for this local setup.
+
+### 3. Start the website
+
+With MongoDB running, copy and paste these commands into CMD. They open separate windows for the backend and frontend:
+
+```cmd
+cd /d D:\e-commerce
+start "ShopNest Backend" cmd /k "npm --prefix backend run dev"
+start "ShopNest Frontend" cmd /k "npm --prefix frontend run dev"
+```
+
+Open <http://localhost:5173>. If Vite reports that port `5173` is busy, use the URL it prints in the frontend window. Check the API at <http://localhost:5000/api/health>; it should report `"database":"connected"`.
+
+### Optional: build the frontend
+
+```cmd
+cd /d D:\e-commerce
+npm --prefix frontend run build
+```
 "# e-commerce" 
+
+
+mongod --dbpath C:\data\db
+npm start
+npm run dev
